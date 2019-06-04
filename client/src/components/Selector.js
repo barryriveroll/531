@@ -12,6 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 const classes = {
   reduceBtn: css`
     float: left;
+    padding: 0px !important;
   `,
   selectorDiv: css`
     display: flex;
@@ -29,6 +30,7 @@ function Selector(props) {
           className={classes.reduceBtn}
           style={{ backgroundColor: props.buttonColor }}
           size="small"
+          disabled={props.value == 1}
           onClick={() => props.clickHandler(props.timeframe, "-")}
         >
           <ArrowLeft fontSize="inherit" />
@@ -38,6 +40,11 @@ function Selector(props) {
         </Typography>
         <IconButton
           className={classes.reduceBtn}
+          disabled={
+            (props.timeframe === "Week" && props.value == 4) ||
+            (props.timeframe === "Day" && props.value == 4) ||
+            (props.timeframe === "Month" && props.value == 12)
+          }
           style={{ backgroundColor: props.buttonColor }}
           size="small"
           onClick={() => props.clickHandler(props.timeframe, "+")}

@@ -17,10 +17,10 @@ const classes = {
   `,
   col: css`
     text-align: left;
-    font-size: 20px;
   `,
   input: css`
     width: 60px;
+    text-align: center;
   `
 };
 
@@ -76,6 +76,22 @@ function findGoalWeight(setNum, weekNum, maxWeight) {
           break;
       }
       break;
+    case 4:
+      switch (setNum) {
+        case 1:
+          newGoal = maxWeight * 0.4;
+          newGoal = newGoal.toFixed(0);
+          break;
+        case 2:
+          newGoal = maxWeight * 0.5;
+          newGoal = newGoal.toFixed(0);
+          break;
+        case 3:
+          newGoal = maxWeight * 0.6;
+          newGoal = newGoal.toFixed(0);
+          break;
+      }
+      break;
   }
 
   while (newGoal % 5 !== 0) {
@@ -87,23 +103,68 @@ function findGoalWeight(setNum, weekNum, maxWeight) {
 
 function findReps(setNum, weekNum) {
   let reps = 5;
+  let percentReps;
   switch (weekNum) {
+    case 1:
+      switch (setNum) {
+        case 1:
+          percentReps = " x 65%";
+          break;
+        case 2:
+          percentReps = " x 75%";
+          break;
+        case 3:
+          percentReps = " x 85%";
+          break;
+      }
+      break;
     case 2:
       reps = 3;
+      switch (setNum) {
+        case 1:
+          percentReps = " x 70%";
+          break;
+        case 2:
+          percentReps = " x 80%";
+
+          break;
+        case 3:
+          percentReps = " x 90%";
+
+          break;
+      }
       break;
     case 3:
       switch (setNum) {
+        case 1:
+          percentReps = " x 75%";
+          break;
         case 2:
           reps = 3;
+          percentReps = " x 85%";
           break;
         case 3:
           reps = 1;
+          percentReps = " x 95%";
+          break;
+      }
+      break;
+    case 4:
+      switch (setNum) {
+        case 1:
+          percentReps = " x 40%";
+          break;
+        case 2:
+          percentReps = " x 50%";
+          break;
+        case 3:
+          percentReps = " x 60%";
           break;
       }
       break;
   }
 
-  return reps;
+  return reps + percentReps;
 }
 
 function CoreTable(props) {
@@ -140,21 +201,51 @@ function CoreTable(props) {
       set: "Set 1",
       reps: findReps(1, props.week),
       goal: findGoalWeight(1, props.week, props.maxWeight),
-      actual: <input type="number" className={classes.input} />,
+      actual: (
+        <input
+          type="number"
+          step="5"
+          name={props.coreName}
+          id="0"
+          onChange={props.changeValues}
+          value={props.coreValues[0]}
+          className={classes.input}
+        />
+      ),
       key: "1"
     },
     {
       set: "Set 2",
       reps: findReps(2, props.week),
       goal: findGoalWeight(2, props.week, props.maxWeight),
-      actual: <input type="number" className={classes.input} />,
+      actual: (
+        <input
+          type="number"
+          step="5"
+          name={props.coreName}
+          id="1"
+          onChange={props.changeValues}
+          value={props.coreValues[1]}
+          className={classes.input}
+        />
+      ),
       key: "2"
     },
     {
       set: "Set 3",
       reps: findReps(3, props.week),
       goal: findGoalWeight(3, props.week, props.maxWeight),
-      actual: <input type="number" className={classes.input} />,
+      actual: (
+        <input
+          type="number"
+          step="5"
+          name={props.coreName}
+          id="2"
+          onChange={props.changeValues}
+          value={props.coreValues[2]}
+          className={classes.input}
+        />
+      ),
       key: "3"
     }
   ];
