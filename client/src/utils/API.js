@@ -25,5 +25,11 @@ export default {
     return axios.get(
       `/api/users/week/${data.week}&${data.type}&${data.name}&${data.user}`
     );
+  },
+
+  getLastEditedDay: function(user) {
+    return axios.get(
+      `/api/users/${user}/lastedited`
+    )
   }
 };

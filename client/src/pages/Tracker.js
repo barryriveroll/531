@@ -63,7 +63,16 @@ class Tracker extends Component {
   };
 
   componentDidMount() {
-    this.updateNumbers();
+    API.getLastEditedDay(this.props.user)
+      .then(res => {
+        const [lastEdited] = res.data;
+        this.setState({
+          month: lastEdited.month ? lastEdited.month : 1,
+          week: lastEdited.week ? lastEdited.week : 1,
+          day: lastEdited.day ? lastEdited.day : 1
+        });   
+        return this.updateNumbers(); 
+      });
   }
 
   updateNumbers = () => {
@@ -148,6 +157,11 @@ class Tracker extends Component {
 
   autoSave = () => {
     const dataToSave = {
+      lastEditedDay: {
+        month: this.state.month,
+        week: this.state.week,
+        day: this.state.day
+      },
       user: this.props.user,
       month: this.state.month,
       week: this.state.week,
